@@ -1,205 +1,151 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>دنیای ویدیو | فضای بی‌نهایت</title>
+<title>دنیای ویدیو</title>
 
-<meta name="description" content="به دنیای ویدیو خوش آمدید">
+<meta name="description" content="دنیای ویدیو، تماشای ویدیو در فضای بی نهایت">
 
 <style>
 
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
 body {
-    background: #02020a;
+    background: #02020b;
     color: white;
-    font-family: Tahoma, Arial, sans-serif;
+    font-family: Tahoma, sans-serif;
     min-height: 100vh;
     overflow-x: hidden;
 }
 
-/* پس زمینه */
+/* ستاره ها */
 
 #stars {
     position: fixed;
     inset: 0;
-    overflow: hidden;
-    z-index: -1;
+    z-index: 0;
     pointer-events: none;
+    overflow: hidden;
 }
 
 .star {
     position: absolute;
     background: white;
     border-radius: 50%;
-    animation: twinkle infinite alternate;
+    animation: shine 2s infinite alternate;
 }
 
-@keyframes twinkle {
-    from {
-        opacity: 0.2;
-        transform: scale(0.7);
-    }
-
-    to {
-        opacity: 1;
-        transform: scale(1.4);
-    }
+@keyframes shine {
+    from { opacity: .2; }
+    to { opacity: 1; }
 }
 
-/* هدر */
+/* محتوای سایت */
+
+main {
+    position: relative;
+    z-index: 1;
+}
+
+/* عنوان */
 
 header {
     text-align: center;
-    padding: 65px 15px 40px;
+    padding: 65px 15px 35px;
 }
 
 header h1 {
     font-size: clamp(28px, 5vw, 45px);
-    color: white;
-    text-shadow: 0 0 15px #008cff,
-                 0 0 35px #004cff;
+    text-shadow: 0 0 20px #008cff;
 }
 
 header p {
     color: #aaa;
     margin-top: 18px;
-    font-size: 15px;
 }
 
-/* خط نورانی */
+/* کارت ها */
 
-.line {
-    width: 150px;
-    height: 3px;
-    margin: 20px auto;
-    background: linear-gradient(
-        90deg,
-        transparent,
-        #00c3ff,
-        #a100ff,
-        transparent
-    );
-}
-
-/* بخش ویدیو */
-
-.video-box {
+.card {
     width: 90%;
     max-width: 850px;
-    margin: 20px auto;
+    margin: 25px auto;
     padding: 25px;
-
-    background: rgba(15, 15, 35, 0.9);
-
-    border: 1px solid #263b82;
-    border-radius: 20px;
-
-    box-shadow: 0 0 30px rgba(0, 100, 255, 0.2);
+    background: rgba(15, 15, 35, .95);
+    border: 1px solid #244a91;
+    border-radius: 18px;
+    box-shadow: 0 0 25px #003b7b55;
 }
 
-.video-box h2 {
+.card h2 {
     text-align: center;
     color: #00c3ff;
     margin-bottom: 25px;
 }
+
+/* ویدیو */
 
 video {
     display: block;
     width: 100%;
     max-height: 500px;
     background: black;
-    border-radius: 15px;
+    border-radius: 12px;
 }
 
-/* لینک ویدیو */
-
-.input-area {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.input-area input {
-    flex: 1;
-    min-width: 0;
+input {
+    width: 100%;
     padding: 14px;
-
+    margin-top: 15px;
     background: #080818;
-    border: 1px solid #333c70;
-    border-radius: 10px;
-
+    border: 1px solid #444;
+    border-radius: 9px;
     color: white;
-    outline: none;
+    font-size: 14px;
 }
 
-.input-area button {
-    padding: 14px 20px;
-    background: linear-gradient(45deg, #006eff, #8c00ff);
-
-    color: white;
+button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 12px;
+    background: linear-gradient(90deg, #006eff, #8300ff);
     border: none;
-    border-radius: 10px;
-
+    border-radius: 9px;
+    color: white;
+    font-size: 16px;
     cursor: pointer;
-    font-weight: bold;
 }
 
-.input-area button:hover {
-    opacity: 0.8;
+button:hover {
+    opacity: .8;
 }
 
-#message {
-    color: #aaa;
+#status {
     text-align: center;
+    color: #aaa;
     margin-top: 15px;
     font-size: 13px;
 }
 
 /* سازندگان */
 
-.credits {
-    width: 90%;
-    max-width: 850px;
-
-    margin: 35px auto;
-    padding: 30px;
-
-    background: rgba(15, 15, 35, 0.9);
-
-    border: 1px solid #34346c;
-    border-radius: 20px;
-
-    box-shadow: 0 0 25px rgba(100, 0, 255, 0.15);
-}
-
-.credits h2 {
-    text-align: center;
-    color: #b78aff;
-    margin-bottom: 25px;
-}
-
-.credit-item {
+.credit {
     padding: 17px;
     margin: 12px 0;
-
-    background: rgba(255,255,255,0.04);
-
+    background: #ffffff0a;
     border-right: 3px solid #008cff;
-    border-radius: 10px;
-
-    transition: 0.3s;
+    border-radius: 9px;
+    transition: .3s;
 }
 
-.credit-item:hover {
-    background: rgba(0, 120, 255, 0.15);
+.credit:hover {
+    background: #008cff22;
     transform: translateX(-5px);
 }
 
@@ -207,125 +153,99 @@ video {
 
 footer {
     text-align: center;
-    padding: 30px 15px;
-    color: #666;
+    padding: 30px;
+    color: #777;
     font-size: 13px;
 }
 
-@media(max-width: 500px) {
-
-    .input-area {
-        flex-direction: column;
-    }
-
-    .input-area button {
-        width: 100%;
-    }
-
-    .video-box,
-    .credits {
-        padding: 18px;
-    }
-
-}
-
 </style>
-
 </head>
 
 <body>
 
 <div id="stars"></div>
 
+<main>
+
 <header>
-
     <h1>🌌 دنیای ویدیو 🌌</h1>
-
-    <div class="line"></div>
-
-    <p>به دنیای بی‌نهایت ویدیو خوش آمدید</p>
-
+    <p>به دنیای بی نهایت خوش آمدید</p>
 </header>
 
+<!-- بخش پخش ویدیو -->
 
-<!-- بخش ویدیو -->
-
-<section class="video-box">
+<section class="card">
 
     <h2>🎬 تماشای ویدیو</h2>
 
     <video
-        id="myVideo"
+        id="player"
         controls
         playsinline
         preload="metadata">
-
-        مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
-
     </video>
 
-    <div class="input-area">
+    <input
+        type="url"
+        id="videoLink"
+        placeholder="لینک مستقیم ویدیو را وارد کنید..."
+    >
 
-        <input
-            type="url"
-            id="videoURL"
-            placeholder="لینک مستقیم MP4 را وارد کنید..."
-        >
+    <button id="playButton">
+        پخش ویدیو
+    </button>
 
-        <button onclick="loadVideo()">
-            پخش ویدیو
-        </button>
+    <input
+        type="file"
+        id="videoFile"
+        accept="video/*"
+    >
 
-    </div>
-
-    <p id="message">
-        لینک مستقیم ویدیو را وارد کنید.
+    <p id="status">
+        لینک مستقیم MP4 یا فایل ویدیویی انتخاب کنید.
     </p>
 
 </section>
 
-
 <!-- بخش سازندگان -->
 
-<section class="credits">
+<section class="card">
 
-    <h2>⭐ عوامل سازنده ⭐</h2>
+    <h2>⭐ سازندگان سایت ⭐</h2>
 
-    <div class="credit-item">
-        👨‍💻 سازنده سایت: معین باقری
+    <div class="credit">
+        👨‍💻 سازنده سایت : معین باقری
     </div>
 
-    <div class="credit-item">
-        🎨 طراح ویدیو: متین باقری
+    <div class="credit">
+        🎨 طراح ویدیو : متین باقری
     </div>
 
-    <div class="credit-item">
-        💻 سازنده سایت: متین باقری
+    <div class="credit">
+        💻 سازنده سایت : متین باقری
     </div>
 
-    <div class="credit-item">
-        🎧 صدابرداری: متین باقری
+    <div class="credit">
+        🎧 صدابرداری : متین باقری
     </div>
 
 </section>
 
-
 <footer>
-
-    ساخته شده با ❤️ در دنیای بی‌نهایت
-
+    ساخته شده با ❤️
 </footer>
 
+</main>
 
 <script>
 
-// ساخت ستاره ها
+/* ساخت ستاره ها */
 
-const stars = document.getElementById("stars");
+const starContainer = document.getElementById("stars");
 
-for (let i = 0; i < 200; i++) {
+for (let i = 0; i < 180; i++) {
 
-    const star = document.createElement("div");
+    const star = document.createElement("span");
 
     star.className = "star";
 
@@ -340,70 +260,95 @@ for (let i = 0; i < 200; i++) {
     star.style.animationDuration =
         (Math.random() * 3 + 1) + "s";
 
-    stars.appendChild(star);
+    star.style.animationDelay =
+        Math.random() * 3 + "s";
 
+    starContainer.appendChild(star);
 }
 
 
-// پخش ویدیو
+/* انتخاب عناصر */
 
-function loadVideo() {
+const player = document.getElementById("player");
+const linkInput = document.getElementById("videoLink");
+const fileInput = document.getElementById("videoFile");
+const statusText = document.getElementById("status");
 
-    const input = document.getElementById("videoURL");
+let currentObjectURL = null;
 
-    const video = document.getElementById("myVideo");
 
-    const message = document.getElementById("message");
+/* پخش لینک */
 
-    const url = input.value.trim();
+document.getElementById("playButton").addEventListener("click", function() {
+
+    const url = linkInput.value.trim();
 
     if (!url) {
-
-        message.textContent = "لطفاً لینک ویدیو را وارد کنید.";
-
+        statusText.textContent = "لطفاً لینک ویدیو را وارد کنید.";
         return;
-
     }
 
     try {
 
-        const parsedURL = new URL(url);
+        const parsed = new URL(url);
 
-        if (!["http:", "https:"].includes(parsedURL.protocol)) {
+        if (parsed.protocol !== "https:" && parsed.protocol !== "http:") {
             throw new Error("Invalid URL");
         }
 
-        video.pause();
+        player.pause();
+        player.src = parsed.href;
+        player.load();
 
-        video.src = parsedURL.href;
+        statusText.textContent =
+            "ویدیو بارگذاری شد. برای پخش دکمه Play را بزنید.";
 
-        video.load();
+    } catch (error) {
 
-        message.textContent =
-            "ویدیو آماده پخش است. دکمه پخش را بزنید.";
-
-    }
-
-    catch (error) {
-
-        message.textContent = "لینک وارد شده معتبر نیست.";
+        statusText.textContent = "لینک وارد شده معتبر نیست.";
 
     }
 
-}
+});
 
 
-// نمایش خطای پخش
+/* انتخاب ویدیو از دستگاه */
 
-document.getElementById("myVideo").addEventListener(
-    "error",
-    function() {
+fileInput.addEventListener("change", function() {
 
-        document.getElementById("message").textContent =
-            "پخش ویدیو ناموفق بود. لینک مستقیم MP4 را بررسی کنید.";
+    const file = fileInput.files[0];
 
+    if (!file) return;
+
+    if (!file.type.startsWith("video/")) {
+        statusText.textContent = "فایل انتخاب شده ویدیو نیست.";
+        return;
     }
-);
+
+    if (currentObjectURL) {
+        URL.revokeObjectURL(currentObjectURL);
+    }
+
+    currentObjectURL = URL.createObjectURL(file);
+
+    player.pause();
+    player.src = currentObjectURL;
+    player.load();
+
+    statusText.textContent =
+        "ویدیو انتخاب شد. برای پخش دکمه Play را بزنید.";
+
+});
+
+
+/* خطای پخش */
+
+player.addEventListener("error", function() {
+
+    statusText.textContent =
+        "ویدیو پخش نشد. لینک مستقیم یا فرمت فایل را بررسی کنید.";
+
+});
 
 </script>
 
