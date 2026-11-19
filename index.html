@@ -86,8 +86,6 @@ video {
     background: black;
 }
 
-/* دکمه های ویدیو */
-
 .video-buttons {
     display: flex;
     justify-content: center;
@@ -120,8 +118,6 @@ video {
     transform: scale(1.08);
 }
 
-/* انتخاب کیفیت */
-
 .quality-select {
     height: 60px;
     padding: 0 15px;
@@ -140,8 +136,6 @@ video {
     color: white;
 }
 
-/* سازندگان */
-
 .credit {
     padding: 17px;
     margin: 12px 0;
@@ -154,6 +148,52 @@ footer {
     text-align: center;
     padding: 30px;
     color: #777;
+}
+
+/* پنجره دانلود */
+
+.download-menu {
+    display: none;
+    width: 100%;
+    margin: 20px auto 0;
+    padding: 25px;
+    background: rgba(15,15,35,.98);
+    border: 1px solid #244a91;
+    border-radius: 18px;
+    box-shadow: 0 0 25px #003b7b55;
+    text-align: center;
+}
+
+.download-menu h2 {
+    color: #00c3ff;
+    margin-bottom: 20px;
+}
+
+.download-menu a {
+    display: block;
+    padding: 16px;
+    margin: 12px 0;
+    background: linear-gradient(135deg,#006eff,#8300ff);
+    border-radius: 10px;
+    color: white;
+    text-decoration: none;
+    font-family: Tahoma;
+    transition: .2s;
+}
+
+.download-menu a:hover {
+    transform: scale(1.03);
+}
+
+#closeDownloadMenu {
+    margin-top: 12px;
+    padding: 12px 25px;
+    border: 1px solid #00c3ff;
+    border-radius: 9px;
+    background: transparent;
+    color: white;
+    font-family: Tahoma;
+    cursor: pointer;
 }
 
 </style>
@@ -189,8 +229,6 @@ footer {
 
 <div class="video-buttons">
 
-    <!-- دکمه پخش -->
-
     <button
         class="play-button"
         id="playButton"
@@ -199,11 +237,9 @@ footer {
         ▶
     </button>
 
-    <!-- انتخاب کیفیت -->
-
     <select class="quality-select" id="qualitySelect">
 
-<option value="video.mp4">کیفیت اصلی 480p</option>
+        <option value="video.mp4">کیفیت اصلی 480p</option>
 
         <option value="video-720.mp4">کیفیت 720p</option>
 
@@ -211,18 +247,38 @@ footer {
 
     </select>
 
-    <!-- دانلود ویدیو -->
-
-    <a
+    <button
         class="download-button"
         id="downloadButton"
-        href="video.mp4"
-        download="video.mp4"
         aria-label="دانلود ویدیو"
         title="دانلود ویدیو"
     >
         📥
+    </button>
+
+</div>
+
+<!-- پنجره انتخاب کیفیت دانلود -->
+
+<div class="download-menu" id="downloadMenu">
+
+    <h2>📥 دانلود ویدیو</h2>
+
+    <a href="video.mp4" download="video-480.mp4">
+        دانلود ویدیو کیفیت 480p
     </a>
+
+    <a href="video-720.mp4" download="video-720.mp4">
+        دانلود ویدیو کیفیت 720p
+    </a>
+
+    <a href="video-1080.mp4" download="video-1080.mp4">
+        دانلود ویدیو کیفیت 1080p
+    </a>
+
+    <button id="closeDownloadMenu">
+        بستن ✖
+    </button>
 
 </div>
 
@@ -323,8 +379,6 @@ video.addEventListener("pause", function() {
 
 const qualitySelect = document.getElementById("qualitySelect");
 
-const downloadButton = document.getElementById("downloadButton");
-
 qualitySelect.addEventListener("change", function() {
 
     const currentTime = video.currentTime;
@@ -333,8 +387,6 @@ qualitySelect.addEventListener("change", function() {
     const selectedVideo = qualitySelect.value;
 
     video.src = selectedVideo;
-
-    downloadButton.href = selectedVideo;
 
     video.load();
 
@@ -352,6 +404,25 @@ qualitySelect.addEventListener("change", function() {
         }
 
     });
+
+});
+
+
+/* پنجره دانلود ویدیو */
+
+const downloadButton = document.getElementById("downloadButton");
+
+const downloadMenu = document.getElementById("downloadMenu");
+
+downloadButton.addEventListener("click", function() {
+
+    downloadMenu.style.display = "block";
+
+});
+
+document.getElementById("closeDownloadMenu").addEventListener("click", function() {
+
+    downloadMenu.style.display = "none";
 
 });
 
