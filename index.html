@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 
@@ -85,24 +86,58 @@ video {
     background: black;
 }
 
-/* دکمه مربعی پخش */
+/* دکمه های ویدیو */
 
-.play-button {
-    display: block;
-    width: 65px;
-    height: 65px;
-    margin: 22px auto 0;
-    border: 1px solid #00c3ff;
-    border-radius: 15px;
-    background: linear-gradient(135deg,#006eff,#8300ff);
-    color: white;
-    font-size: 25px;
-    cursor: pointer;
-    box-shadow: 0 0 20px #006eff66;
+.video-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 22px;
 }
 
-.play-button:hover {
+.play-button,
+.download-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 65px;
+    height: 60px;
+    border: 1px solid #00c3ff;
+    border-radius: 13px;
+    background: linear-gradient(135deg,#006eff,#8300ff);
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 0 20px #006eff66;
+    transition: .2s;
+}
+
+.play-button:hover,
+.download-button:hover {
     transform: scale(1.08);
+}
+
+/* انتخاب کیفیت */
+
+.quality-select {
+    height: 60px;
+    padding: 0 15px;
+    border: 1px solid #00c3ff;
+    border-radius: 13px;
+    background: #101b3a;
+    color: white;
+    font-family: Tahoma;
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+}
+
+.quality-select option {
+    background: #101b3a;
+    color: white;
 }
 
 /* سازندگان */
@@ -144,16 +179,52 @@ footer {
 
 <video
     id="player"
+    controls
     playsinline
     preload="metadata"
 >
-    <source src="VIDEO-LINK.mp4" type="video/mp4">
+<source src="video.mp4" type="video/mp4">
     مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
 </video>
 
-<button class="play-button" id="playButton" aria-label="پخش ویدیو">
-    ▶
-</button>
+<div class="video-buttons">
+
+    <!-- دکمه پخش -->
+
+    <button
+        class="play-button"
+        id="playButton"
+        aria-label="پخش ویدیو"
+    >
+        ▶
+    </button>
+
+    <!-- انتخاب کیفیت -->
+
+    <select class="quality-select" id="qualitySelect">
+
+<option value="video.mp4">کیفیت اصلی 480p</option>
+
+        <option value="VIDEO-720.mp4">کیفیت 720p</option>
+
+        <option value="VIDEO-1080.mp4">کیفیت 1080p</option>
+
+    </select>
+
+    <!-- دانلود ویدیو -->
+
+    <a
+        class="download-button"
+        id="downloadButton"
+        href="video.mp4"
+        download="video.mp4"
+        aria-label="دانلود ویدیو"
+        title="دانلود ویدیو"
+    >
+        📥
+    </a>
+
+</div>
 
 </section>
 
@@ -247,8 +318,41 @@ video.addEventListener("pause", function() {
     button.setAttribute("aria-label", "پخش ویدیو");
 });
 
-video.addEventListener("ended", function() {
-    button.textContent = "▶";
+
+/* انتخاب کیفیت ویدیو */
+
+const qualitySelect = document.getElementById("qualitySelect");
+
+const downloadButton = document.getElementById("downloadButton");
+
+qualitySelect.addEventListener("change", function() {
+
+    const currentTime = video.currentTime;
+    const wasPlaying = !video.paused;
+
+    const selectedVideo = qualitySelect.value;
+
+    video.src = selectedVideo;
+
+    downloadButton.href = selectedVideo;
+
+    video.load();
+
+    video.addEventListener("loadedmetadata", function restoreVideo() {
+
+        video.removeEventListener("loadedmetadata", restoreVideo);
+
+        video.currentTime = Math.min(
+            currentTime,
+            video.duration || 0
+        );
+
+        if (wasPlaying) {
+            video.play().catch(() => {});
+        }
+
+    });
+
 });
 
 </script>
